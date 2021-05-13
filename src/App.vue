@@ -20,11 +20,21 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
       allRequestsRecordList: []
+    }
+  },
+  computed: {
+    ...mapState(['allRequestsRecord'])
+  },
+  watch: {
+    allRequestsRecord: {
+      handler(val) {
+        this.allRequestsRecordList = val
+      }
     }
   },
   methods: {
@@ -34,16 +44,6 @@ export default {
         item.cancel('cancel')
       })
     }
-  },
-  watch: {
-    allRequestsRecord: {
-      handler(val) {
-        this.allRequestsRecordList = val
-      }
-    }
-  },
-  computed: {
-    ...mapState(['allRequestsRecord'])
   }
 }
 </script>
