@@ -1,12 +1,52 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div
+    id="app">
+    <button
+      @click="handleCancelRequest">cancelRequest</button>
+    <div
+      id="nav">
+      <router-link
+        to="/">
+        Home
+      </router-link>
+      |
+      <router-link
+        to="/about">
+        About
+      </router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script>
+import { mapState } from "vuex"
+export default {
+  data() {
+    return {
+      allRequestsRecordList: []
+    }
+  },
+  methods: {
+    handleCancelRequest() {
+      console.log(this.allRequestsRecordList)
+      this.allRequestsRecordList.forEach((item) => {
+        item.cancel('cancel')
+      })
+    }
+  },
+  watch: {
+    allRequestsRecord: {
+      handler(val) {
+        this.allRequestsRecordList = val
+      }
+    }
+  },
+  computed: {
+    ...mapState(['allRequestsRecord'])
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
