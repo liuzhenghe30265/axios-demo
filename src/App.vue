@@ -3,7 +3,7 @@
     id="app">
     <button
       @click="handleCancelRequest">cancelRequest</button>
-    <div
+    <!-- <div
       id="nav">
       <router-link
         to="/">
@@ -15,15 +15,31 @@
         About
       </router-link>
     </div>
-    <router-view />
+    <router-view /> -->
+    <table>
+      <tr
+        v-for="(tr, index) of calendarData"
+        :key="index">
+        <td
+          v-for="(td, tdindex) of tr"
+          :key="tdindex">
+          <b
+            v-if="td && td.date">
+            {{ td.date }}
+          </b>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
+import { dateFormat, getDays, createCalendar } from '@/utils/utils.js'
 import { mapState } from 'vuex'
 export default {
   data() {
     return {
+      calendarData: [],
       allRequestsRecordList: []
     }
   },
@@ -36,6 +52,14 @@ export default {
         this.allRequestsRecordList = val
       }
     }
+  },
+  mounted() {
+    console.log(dateFormat(new Date()))
+    console.log(dateFormat('2020-2-2 23:00:00'))
+    console.log(getDays(10, 'before'))
+    console.log(getDays(10))
+    console.log(createCalendar(2020, 5))
+    this.calendarData = createCalendar(2021, 5)
   },
   methods: {
     handleCancelRequest() {
